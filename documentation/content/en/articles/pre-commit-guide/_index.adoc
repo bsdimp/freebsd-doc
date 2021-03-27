@@ -1,0 +1,95 @@
+---
+title: FreeBSD Pre-Commit Best Practices
+---
+
+= FreeBSD Pre-Commit Best Practices
+:doctype: article
+:toc: macro
+:toclevels: 1
+:icons: font
+:sectnums:
+:sectnumlevels: 6
+:source-highlighter: rouge
+:experimental:
+
+include::shared/en/urls.adoc[]
+
+'''
+
+toc::[]
+
+[[pre-commit-intro]]
+== Introduction
+
+Developing code for the FreeBSD operating system has evolved over the years.
+The Project has found a number of best pracitces for developing software over the years.
+Developers and contributors that have followed these practices have generally produced better code than those that did not.
+Software development is imperfect at best, and by following these guidelines as appropraite, higher quality code can result.
+
+This article gives advice in the following areas
+. Planning the changes
+. Implementation outside the tree
+. Pre-commit testing
+. Pre-commit code review
+. Commiting the code
+. Post-commit considerations
+
+While applicable to all development, this guide is focused on those items that take substantial effort to implement.
+For bug fixes, these guides can also be useful, though not all advice would be relevant.
+
+[[pre-commit-planning]]
+== Planning
+
+=== Design
+=== Socializing Change
+=== Documenting Intentions
+
+[[pre-commit-development]]
+== Implementation Guidance
+
+=== Git Best Practices
+==== Copying Files
+==== Refactoring Code
+==== Cleanup Commits
+==== Committing with Review In Mind
+
+=== Kernel Considerations
+
+=== Toolchain Considerations
+
+=== Libc and Include Files
+
+[[pre-commit-testing]]
+== Pre-Commit Testing
+
+=== Regression Testing
+==== How to use Kyua
+=== Functional Testing
+=== Stress Testing
+==== When and how to use stress2
+
+[[pre-commit-code-review]]
+== Pre-Commit Code Review
+
+=== Culture of Code Review
+==== Benefits of Review
+=== How to Structure Commits for Review
+=== Phabricator
+==== Using the tool
+==== Accounts
+=== Social Norms in Code Reviews
+==== Reviewed by
+==== Feedback
+==== Scope of Review
+==== Related Changes
+=== How to Give Code Review Feedback
+=== How to Accept Feedback
+
+[[committing]]
+== Comitting Your Changes
+
+[[post-commit]]
+== Post-commit Considerations
+
+[[pre-commit-conclusion]]
+== Conclusion
