@@ -41,15 +41,60 @@ For bug fixes, these guides can also be useful, though not all advice would be r
 == Planning
 
 === Design
+Creating at least a draft design document for changes can be helpful.
+Design documents range from a simple paragraph articulating the intent to multiple page documents with fancy diagrams.
+The level of design should be appropriate for the change.
+One should also consider updating the FreeBSD handbook with design documents to preserve the design and make the system more understandable to more people.
+
+No all changes require a design document, however.
+Some changes require a design for the change.
+Simple bug fixes; adding a new driver; and creating or improving documentation have no design.
+Alterations to existing code often should be mindful of the existing design and change it only with intention.
+Sometimes there's little long-term payoff for documenting a change beyond what's in the code comments and commit message.
+
 === Socializing Change
+Some changes need to be socialized.
+This means they should be discussed in the community or the appropriate group of experts.
+Changes deprecating or removing code that is not longer relevant require an evaluation of who might still be using it.
+Where appropriate, sharing the design document can help socialize the change.
+It informs others what the change will be, and helps gather their concerns early in the process when designs tend to be more malliable.
+It can also illicit help from time to time on different aspects of the change.
+
 === Documenting Intentions
+Sometimes a change is part of a larger series or a larger set of plans.
+It can be good to document what the intentions are behind a change.
+These documents range anywhere from the contents of the commit message to longer documents and/or discussions in the community.
+When creating changes for the Project, consider what people in the future may need to understand your change.
+
+=== Thinking About The Final Commits
+Finally, for some changes, one needs to consider how the commits will land into the tree.
+If you are refactoring code, for example, that involved code movement, one should follow [pre-commit-refactoring] and [pre-commit-cleanup].
+If you are implementing a new feature, but also notice cleanup issues, try to separate them from the start.
+It is easier to merge commits together that were improperly separated than to have to separate out style from substance changes after the fact.
+Some thought should also be given ensuring the commits are sized right for review [pre-commit-code-review], bisecting and having each step functional (or at least not regressing).
+
+=== Plan the tests
+Where it makes sense, one should also plan to write new tests.
+Changes that fix a bug should try to include a Kyua test to avoid regressions in the future.
+Changes that add new features should try to include a Kyua test that ensures basic functionality.
+When fixing an edge condition that only occurs under heavy load, investigate whether you can add a test to stress2 for that condition.
+
+Some changes don't need tests.
+Adding a new device identifier to a driver, for example, is hard to test automatically so no test is needed.
+Adding comments to existing code doesn't need a test.
+Creating or fixing documentation can't be tested apart from building it.
+Stress testing can also be difficult to test, though the stress2 framework can test for edge cases triggered by heavy load.
 
 [[pre-commit-development]]
 == Implementation Guidance
 
 === Git Best Practices
 ==== Copying Files
+
+[[pre-commit-refactoring]]
 ==== Refactoring Code
+
+[[pre-commit-cleanup]]
 ==== Cleanup Commits
 ==== Committing with Review In Mind
 
@@ -71,7 +116,26 @@ For bug fixes, these guides can also be useful, though not all advice would be r
 [[pre-commit-code-review]]
 == Pre-Commit Code Review
 
+Software is written by imperfect people.
+As a result, software itself is imperfect as it reflects gaps and misunderstandings in developer' perceptions of both the problem being solved and the software serving as the solution.
+These gaps and misunderstandings manifest as bugs resulting in incorrect behavior, inconsistent behavaior, crashes, data loss, etc.
+One of the tools to aid in mitigating this is having additional developers review source code.
+While these developers themselves are also imperfect, the various gaps and misunderstandings will vary from person to person.
+Hopefully, the more developers who are able to examine a given piece of source code, the more likely it is that bugs in the software can be found.
+In addtion, code reivew can promote "conceptual integrity" as described in Fred Brooks in _The_Mythical_Man-Month.
+In other words, code review by developers familiar with the overall design of a system can help ensure the new changes are consistent with the system's design, or that changes "do things the way this system normally does them."
+
 === Culture of Code Review
+
+Over time, the FreeBSD Project has grown a culture of code review.
+While code reivew is not mandatory for changes, the ratio of committed changes that are reviewed cotninues to increase.
+In the late 1990s, code review was fairly informal, especially for changes in the source tree.
+The changes that were reviewed typically took place in private email threads, over IRC, or, on occasion, in person.
+During code freezes for releases, code review was somewhat mandated in the form of approval by the release engineering team for code freeze commits.
+However, this approval ws generally focused on a risk assessement of the changes relative to the upcoming release, rather than on the quality of the code itself.
+Ports developers have had a stronger review culture than the source tree developers, and several years ago a couple of ports developers stood up an instance of the Phabricator code review tool to review FreeBSD patches.
+While the initial focus was on providing a better mechanism than Bugzilla for reviewing patches to ports, several source developers started using it as well.
+
 ==== Benefits of Review
 === How to Structure Commits for Review
 === Phabricator
